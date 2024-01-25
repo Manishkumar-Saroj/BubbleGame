@@ -15,16 +15,25 @@ function getNewHit(){
 }
 
 
-function makeBubble(){
+function makeBubble() {
     var clutter = "";
+    var bubbleWidth = 30; // Adjust the width of each bubble according to your preference
+    var numberOfBubbles = Math.floor(window.innerWidth / bubbleWidth) * 2;
 
-    for(var i = 1; i<=112; i++){
-        var rn = Math.floor(Math.random()*10)
+    for (var i = 1; i <= numberOfBubbles; i++) {
+        var rn = Math.floor(Math.random() * 10)
         clutter += `<div class="bubble">${rn}</div>`;
     }
 
     document.querySelector("#pbtm").innerHTML = clutter;
 }
+
+// // Call the function on page load or whenever appropriate
+// makeBubble();
+
+// // Optionally, you may want to recalculate and regenerate bubbles on window resize
+window.addEventListener('resize', makeBubble);
+
 
 
 function runTimer(){
