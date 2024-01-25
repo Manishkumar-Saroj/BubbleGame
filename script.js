@@ -1,6 +1,7 @@
 var timer = 60;
 var score = 0;
 var hitrn = 0;
+var gameRunning = true; // Added variable to track game state
 
 function increaseScore() {
     score += 10;
@@ -13,6 +14,8 @@ function getNewHit() {
 }
 
 function makeBubble() {
+    if (!gameRunning) return; // Stop creating bubbles if the game is over
+
     var container = document.getElementById('pbtm');
     var bubbleWidth = 10;
     var numberOfBubbles = Math.floor(window.innerWidth / bubbleWidth) * 2;
@@ -31,13 +34,15 @@ function makeBubble() {
 makeBubble();
 
 // Add event listener for scrolling
-document.getElementById('pbtm').addEventListener('scroll', function () {
+var scrollListener = function () {
     var container = this;
     if (container.scrollTop + container.clientHeight >= container.scrollHeight - 20) {
         // User has scrolled close to the bottom, add more bubbles
         makeBubble();
     }
-});
+};
+
+document.getElementById('pbtm').addEventListener('scroll', scrollListener);
 
 function runTimer() {
     var timerint = setInterval(function () {
@@ -47,6 +52,8 @@ function runTimer() {
         } else {
             clearInterval(timerint);
             document.querySelector("#pbtm").innerHTML = `<h1>Game Over</h1>`;
+            gameRunning = false; // Set gameRunning to false when the game is over
+            document.getElementById('pbtm').removeEventListener('scroll', scrollListener); // Remove scroll event listener
         }
     }, 1000);
 }
@@ -58,7 +65,7 @@ document.querySelector("#pbtm").addEventListener("click", function (details) {
         makeBubble();
         getNewHit();
     }
-})
+});
 
 runTimer();
 getNewHit();
