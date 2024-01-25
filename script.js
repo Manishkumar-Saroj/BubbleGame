@@ -6,7 +6,15 @@ var gameRunning = true; // Added variable to track game state
 function increaseScore() {
     score += 10;
     document.querySelector("#scoreval").textContent = score;
+
+    // Get all bubble elements and update their content
+    var bubbles = document.querySelectorAll(".bubble");
+    bubbles.forEach(function(bubble) {
+        var newRandomNumber = Math.floor(Math.random() * 10);
+        bubble.textContent = newRandomNumber;
+    });
 }
+
 
 function getNewHit() {
     hitrn = Math.floor(Math.random() * 10);
@@ -66,6 +74,7 @@ document.querySelector("#pbtm").addEventListener("click", function (details) {
         getNewHit();
     }
 });
+
 
 runTimer();
 getNewHit();
