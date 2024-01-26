@@ -114,8 +114,8 @@ html,body{
 
 @media (max-width: 500px) {
     .bubble{
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
         font-size: 12px;
     }
 
